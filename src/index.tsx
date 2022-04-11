@@ -1,23 +1,45 @@
 import React from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import Search from './pages/Search'
 import Favorites from './pages/Favorites'
 import Details from './pages/Details'
+import { ThemeProvider, createTheme } from '@mui/material'
+import { CssBaseline } from '@mui/material'
+
+import '@fontsource/roboto/300.css'
+import '@fontsource/roboto/400.css'
+import '@fontsource/roboto/500.css'
+import '@fontsource/roboto/700.css'
+
+const theme = createTheme({
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        * {
+         margin: 0;
+         padding: 0;
+        }
+      `
+    }
+  }
+})
 
 const rootContainer = document.getElementById('root') as HTMLElement
 const root = createRoot(rootContainer)
 root.render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Search/>}/>
-        <Route path="/favorites" element={<Favorites/>}/>
-        <Route path="/movie/:name" element={<Details/>}/>
-      </Routes>
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <CssBaseline/>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Search/>}/>
+          <Route path="/favorites" element={<Favorites/>}/>
+          <Route path="/movie/:name" element={<Details/>}/>
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>
 )
 
