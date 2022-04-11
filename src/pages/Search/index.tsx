@@ -1,12 +1,11 @@
 import React from 'react'
 
-
 const Search: React.FC = () => {
-    return (
-        <>
-            Search
-        </>
-    )
+  return (
+    <>
+      Search
+    </>
+  )
 }
 
 export default Search

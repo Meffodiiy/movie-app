@@ -2,11 +2,11 @@ import React from 'react'
 
 
 const Favorites: React.FC = () => {
-    return (
-        <>
+  return (
+    <>
             Favorites
-        </>
-    )
+    </>
+  )
 }
 
 export default Favorites
