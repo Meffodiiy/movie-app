@@ -36,7 +36,7 @@ root.render(
         <Routes>
           <Route path="/" element={<Search/>}/>
           <Route path="/favorites" element={<Favorites/>}/>
-          <Route path="/movie/:name" element={<Details/>}/>
+          <Route path="/details/:imdbID" element={<Details/>}/>
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
