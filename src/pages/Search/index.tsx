@@ -29,14 +29,14 @@ export default Search
 const itemsData: Array<IMovieData> = [
   {
     Title: 'Batman',
-    Year: 2005,
+    Year: '2005',
     imdbID: 'tt0372784',
     Type: 'movie',
     Poster: 'https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg'
   },
   {
     Title: 'Batman 2',
-    Year: 2006,
+    Year: '2006',
     imdbID: 'tt0372785',
     Type: 'movie',
     Poster: 'https://m.media-amazon.com/images/M/MV5BOTY4YjI2N2MtYmFlMC00ZjcyLTg3YjEtMDQyM2ZjYzQ5YWFkXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg'
