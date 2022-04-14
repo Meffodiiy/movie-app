@@ -20,7 +20,7 @@ const Favorites: React.FC<IFavoritesProps & IFavoritesActionProps> = ({
   loadFavorites
 }) => {
   const [favoriteMoviesData, setFavoriteMoviesData] = useState<Array<IMovieData>>([])
-  
+
   useEffect(() => {
     loadFavorites()
   }, [])
@@ -75,3 +75,7 @@ export default connect(
   mapStateToProps,
   { loadFavorites }
 )(Favorites)
+
+export type {
+  IFavoritesProps
+}

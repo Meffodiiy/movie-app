@@ -5,15 +5,20 @@ import { Star as StarIcon } from '@mui/icons-material'
 import { getMovieDataByImdbID } from '../../utils/fetchMovieData'
 import { IMovieData } from '../../components/MovieItem'
 import { connect } from 'react-redux'
-import { toggleFavorites } from '../../redux/actions'
+import { loadFavorites, toggleFavorites } from '../../redux/actions'
+import { IFavoritesProps } from '../Favorites'
 
 
 interface IDetails {
-  toggleFavorites: (imdbID: string) => void
+  loadFavorites: () => void,
+  toggleFavorites: (imdbID: string) => void,
+  favoriteMovieImdbIDs: string[]
 }
 
 const Details: React.FC<IDetails> = ({
-  toggleFavorites
+  loadFavorites,
+  toggleFavorites,
+  favoriteMovieImdbIDs
 }) => {
   const { imdbID } = useParams()
 
@@ -28,6 +33,7 @@ const Details: React.FC<IDetails> = ({
   useEffect(() => {
     if (!imdbID) return
     getMovieDataByImdbID(imdbID).then(data => setMovieData(data))
+    loadFavorites()
   }, [imdbID])
 
   return (
@@ -67,6 +73,7 @@ const Details: React.FC<IDetails> = ({
                 sx={{
                   cursor: 'pointer'
                 }}
+                color={ favoriteMovieImdbIDs.includes(imdbID) ? 'warning' : undefined }
               />
             ) }
           </Box>
@@ -108,7 +115,11 @@ const Details: React.FC<IDetails> = ({
   )
 }
 
+const mapStateToProps = (state: { favorites: IFavoritesProps }) => ({
+  favoriteMovieImdbIDs: state.favorites.favoriteMovieImdbIDs
+})
 
-export default connect(null, {
-  toggleFavorites
-})(Details)
+export default connect(
+  mapStateToProps,
+  { loadFavorites, toggleFavorites  }
+)(Details)
