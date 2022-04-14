@@ -1,8 +1,15 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Button, InputBase, Paper } from '@mui/material'
 
 
-const SearchBar = () => {
+interface ISearchBarProps {
+  onSearch: (title: string) => void
+}
+
+const SearchBar: React.FC<ISearchBarProps> = ({
+  onSearch
+}) => {
+  const [movieTitle, setMovieTitle] = useState('')
 
   return (
     <Paper
@@ -19,8 +26,14 @@ const SearchBar = () => {
         sx={{
           flex: 1
         }}
+        onChange={ event => setMovieTitle(event.target.value) }
+        value={ movieTitle }
       />
-      <Button>Search</Button>
+      <Button
+        onClick={ () => onSearch(movieTitle) }
+      >
+        Search
+      </Button>
     </Paper>
   )
 }

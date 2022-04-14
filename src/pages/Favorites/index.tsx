@@ -26,11 +26,17 @@ const Favorites: React.FC<IFavoritesProps & IFavoritesActionProps> = ({
   }, [])
   
   useEffect(() => {
-    favoriteMovieImdbIDs.forEach(imdbID => {
-      getMovieDataByImdbID(imdbID, true).then(movieData => {
-        setFavoriteMoviesData(prevMoviesData => [...prevMoviesData, movieData])
+    if (favoriteMoviesData.length) {
+      setFavoriteMoviesData(
+        prevMoviesData => prevMoviesData.filter(
+          ({ imdbID }) => favoriteMovieImdbIDs.includes(imdbID)))
+    } else {
+      favoriteMovieImdbIDs.forEach(imdbID => {
+        getMovieDataByImdbID(imdbID, true).then(movieData => {
+          setFavoriteMoviesData(prevMoviesData => [...prevMoviesData, movieData])
+        })
       })
-    })
+    }
   }, [favoriteMovieImdbIDs])
 
   return (
