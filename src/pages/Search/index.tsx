@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container } from '@mui/material'
+import { Container, Link } from '@mui/material'
 import SearchBar from './components/SearchBar'
 import MovieList from '../../components/MovieList'
 import { IMovieData } from '../../components/MovieItem'
@@ -17,6 +17,15 @@ const Search: React.FC = () => {
         alignItems: 'center'
       }}
     >
+      <Link
+        href="/favorites"
+        color="#fff"
+        fontSize="2em"
+        fontWeight="bold"
+        paddingTop="6px"
+      >
+        Favorites
+      </Link>
       <SearchBar/>
       <MovieList items={itemsData}/>
     </Container>

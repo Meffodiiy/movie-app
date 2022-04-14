@@ -1,12 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import {Box, Card, CardMedia, Container, Grid} from '@mui/material'
+import { Box, Card, CardMedia, Container, Grid } from '@mui/material'
 import { Star as StarIcon } from '@mui/icons-material'
 import { getMovieDataByImdbID } from '../../utils/fetchMovieData'
 import { IMovieData } from '../../components/MovieItem'
+import { connect } from 'react-redux'
+import { toggleFavorites } from '../../redux/actions'
 
 
-const Details: React.FC = () => {
+interface IDetails {
+  toggleFavorites: (imdbID: string) => void
+}
+
+const Details: React.FC<IDetails> = ({
+  toggleFavorites
+}) => {
   const { imdbID } = useParams()
 
   const [{
@@ -53,11 +61,14 @@ const Details: React.FC = () => {
             }}
           >
             <Box>{ title }</Box>
-            <StarIcon
-              sx={{
-                cursor: 'pointer'
-              }}
-            />
+            { imdbID && (
+              <StarIcon
+                onClick={ () => toggleFavorites(imdbID) }
+                sx={{
+                  cursor: 'pointer'
+                }}
+              />
+            ) }
           </Box>
           <Box sx={{ color: 'white' }} padding="16px 0">
             <i>{ plot }</i>
@@ -97,4 +108,7 @@ const Details: React.FC = () => {
   )
 }
 
-export default Details
+
+export default connect(null, {
+  toggleFavorites
+})(Details)

@@ -1,7 +1,11 @@
 import {IMovieData} from '../components/MovieItem'
 
+interface IFetchData {
+  Response: string,
+  [key: string]: unknown
+} 
 
-const fetchData = async ({ s, i }: { s?: string, i?: string }) => {
+const fetchData = async ({ s, i }: { s?: string, i?: string }): Promise<IFetchData> => {
   let apiURL = 'http://omdbapi.com/?apikey=6f627dd1'
   if (s) apiURL += `&s=${s}`
   if (i) apiURL += `&i=${i}`
@@ -17,10 +21,11 @@ const searchMoviesByTitle = async (title: string): Promise<Array<IMovieData>> =>
   return []
 }
 
-const getMovieDataByImdbID = async (imdbID: string): Promise<IMovieData> => {
+const getMovieDataByImdbID = async (imdbID: string, includeImdbID = false): Promise<IMovieData> => {
   const { Response, ...rest } = await fetchData({ i: imdbID })
   if (Response === 'True') {
-    delete rest.imdbID
+    if (!includeImdbID)
+      delete rest.imdbID
     return rest as IMovieData
   }
   return {} as IMovieData

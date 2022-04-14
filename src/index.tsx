@@ -7,6 +7,9 @@ import Favorites from './pages/Favorites'
 import Details from './pages/Details'
 import { ThemeProvider, createTheme } from '@mui/material'
 import { CssBaseline } from '@mui/material'
+import { createStore } from 'redux'
+import { rootReducer } from './redux/rootReducer'
+import { Provider } from 'react-redux'
 
 import '@fontsource/roboto/300.css'
 import '@fontsource/roboto/400.css'
@@ -26,20 +29,24 @@ const theme = createTheme({
   }
 })
 
+const store = createStore(rootReducer)
+
 const rootContainer = document.getElementById('root') as HTMLElement
 const root = createRoot(rootContainer)
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline/>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Search/>}/>
-          <Route path="/favorites" element={<Favorites/>}/>
-          <Route path="/details/:imdbID" element={<Details/>}/>
-        </Routes>
-      </BrowserRouter>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline/>
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Search/>}/>
+            <Route path="/favorites" element={<Favorites/>}/>
+            <Route path="/details/:imdbID" element={<Details/>}/>
+          </Routes>
+        </BrowserRouter>
+      </ThemeProvider>
+    </Provider>
   </React.StrictMode>
 )
 

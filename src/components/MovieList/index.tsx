@@ -4,11 +4,13 @@ import MovieItem, { IMovieData } from '../MovieItem'
 
 
 interface IMovieListProps {
-  items: Array<IMovieData>
+  items: Array<IMovieData>,
+  addRemoveButton?: boolean
 }
 
 const MovieList: React.FC<IMovieListProps> = ({
-  items
+  items,
+  addRemoveButton = false
 }) => {
   return (
     <List>
@@ -16,6 +18,7 @@ const MovieList: React.FC<IMovieListProps> = ({
         <MovieItem
           key={item.imdbID}
           data={item}
+          hasRemoveButton={addRemoveButton}
         />
       )) }
     </List>

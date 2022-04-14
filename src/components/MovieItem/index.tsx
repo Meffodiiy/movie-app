@@ -1,9 +1,8 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import {
-  ListItem,
-  Paper, Box
-} from '@mui/material'
+import { ListItem, Paper, Box, Button } from '@mui/material'
+import { connect } from 'react-redux'
+import { toggleFavorites } from '../../redux/actions'
 
 interface IMovieData {
   Title: string
@@ -17,7 +16,9 @@ interface IMovieData {
 }
 
 interface IMovieItemProps {
-  data: IMovieData
+  data: IMovieData,
+  hasRemoveButton: boolean,
+  toggleFavorites: (imdbID: string) => void
 }
 
 const MovieItem: React.FC<IMovieItemProps> = ({
@@ -26,7 +27,9 @@ const MovieItem: React.FC<IMovieItemProps> = ({
     Year,
     imdbID,
     Poster
-  }
+  },
+  hasRemoveButton, 
+  toggleFavorites
 }) => {
   const navigate = useNavigate()
 
@@ -34,9 +37,8 @@ const MovieItem: React.FC<IMovieItemProps> = ({
   
   return (
     <ListItem
-      button
       disableGutters
-      onClick={ openMovieDetails }
+      onClick={ !hasRemoveButton ? openMovieDetails : undefined }
     >
       <Paper
         sx={{ overflow: 'hidden' }}
@@ -46,12 +48,26 @@ const MovieItem: React.FC<IMovieItemProps> = ({
           <strong>{ Title }</strong>
           <p>{ Year }</p>
         </Box>
+        { hasRemoveButton && (
+          <Box
+            display="flex"
+            justifyContent="center"
+            marginBottom="6px"
+          >
+            <Button
+              color="error"
+              onClick={ () => toggleFavorites(imdbID) }
+            >
+              Remove
+            </Button>
+          </Box>
+        ) }
       </Paper>
     </ListItem>
   )
 }
 
-export default MovieItem
+export default connect(null, { toggleFavorites })(MovieItem)
 
 export type {
   IMovieData
